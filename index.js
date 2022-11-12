@@ -21,8 +21,10 @@ const dispatchMessage = async (payload) => {
    try{
     const access_token = await queryAccessToken();
     request.post(`${config.url}/cgi-bin/message/template/send?access_token=${access_token}`, payload);
-   }catch(e){
+   } catch(e){
     console.log(e);
+   } finally {
+    process.exit(1);
    }
 };
 
