@@ -9,6 +9,6 @@
     "moment": "^2.29.4"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   }
 }

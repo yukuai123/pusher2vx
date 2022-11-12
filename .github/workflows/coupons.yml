@@ -19,7 +19,4 @@ jobs:
       - name: Install Dependency
         run: |
           npm install
-          npm install axios
-          npm install express
-          npm install moment
-          node ./server.js
+          npm run start
