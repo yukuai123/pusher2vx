@@ -16,7 +16,6 @@ jobs:
         uses: actions/setup-node@v2  #安装node.js
         with:
           node-version: '14'
-          cache: 'npm'
           registry-url: https://registry.npm.taobao.org
       - name: Install Dependency
         run: |
