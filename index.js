@@ -77,7 +77,7 @@ const genPayload = async () => {
     }, {});
 
     return {
-        touser:"oGBbq5ymBQB5r-pZzgSkncG9zR50",
+        touser: config.openid,
         template_id: config.templateId,
         url: weatherLink,
         topcolor: "#FF0000",

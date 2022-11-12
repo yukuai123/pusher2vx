@@ -2,11 +2,12 @@
     "url": "https://api.weixin.qq.com",
     "appid":"wx6b8efc358deb0cfa",
     "secret": "756a243f85494bc931f663ea3be25900",
-    "templateId": "oGBbq5--kCZhWBP61o4SD5QLLKLk",
+    "templateId": "e0llU3hiNccdS5kY7Z_NMimxh0Nd71a1wgtv_fjpelg",
     "love_day": "2016-12-11",
     "birthday1": "04-04",
     "birthday2": "08-29",
     "jojo": "2022-07-31",
     "jojo_birthday": "2022-05-18",
-    "city": "宁德"
+    "city": "宁德",
+    "openid": "oGBbq5--kCZhWBP61o4SD5QLLKLk"
 }
