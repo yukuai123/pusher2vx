@@ -13,10 +13,6 @@ app.get("/wechat", (req, res) => {
     sha1Str === signature ? res.send(echostr) : res.send("error");
 });
 
-app.get("/", (req, res) => {
-    res.send("212")
-});
-
 app.listen(port, () => {
   init();
   console.log(`Example app listening at http://localhost:${port}`)

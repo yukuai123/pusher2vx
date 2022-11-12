@@ -1,4 +1,5 @@
 const moment = require("moment");
+const COLORS = require('./colors.js');
 
 const pickRandomWord = (num) => {
   const workDays = ["辛苦了！", '元气补充！', "lucky day！", "冲！", "加油加油！", "嗨嗨嗨！", "san↓ hp↑ ！", "您是最棒的！", "小饼干带头干饭！", "坚持坚持！"];
@@ -96,10 +97,26 @@ function encodeUTF8(s) {
     return hex;
 };
 
-function randomColor() {
-  let randomColor = "#" + parseInt(Math.random() * 0x1000000).toString(16).padStart(6, "0")
-  return randomColor
+const shuffle = () => {
+  const arr = COLORS;
+  var length = arr.length,
+    randomIndex,
+    temp;
+  while (length) {
+    randomIndex = Math.floor(Math.random() * (length--));
+    temp = arr[randomIndex];
+    arr[randomIndex] = arr[length];
+    arr[length] = temp
+  }
+  return arr;
 }
+
+const randomColor = (idx) => {
+  const colors = shuffle();
+  return () => {
+    return colors.length -1 <= idx ? colors[Date.now() % colors.length] : colors[idx];
+  }
+};
 
 module.exports = {
     calcBirthDay, calcFromNowDay, sha1, randomColor, getWeek

@@ -29,59 +29,63 @@ const dispatchMessage = async (payload) => {
 
 const genPayload = async () => {
 
-    const weatherInfo = await weatherApi.queryWeather();
-    const { tempMax , tempMin, textDay, tipText, clothLevel, clothText, suiLevel, suiText, weatherLink } = weatherInfo || {};
-    const tip = tipText;
+    try {
+        const weatherInfo = await weatherApi.queryWeather();
+        const { tempMax , tempMin, textDay, tipText, clothLevel, clothText, suiLevel, suiText, weatherLink } = weatherInfo || {};
+        const tip = tipText;
 
-    const cLevel = `🕊️ ${clothLevel}: ${clothText}`;
-    const sLevel = `✈️ ${suiLevel}: ${suiText}`;
+        const cLevel = `🕊️ ${clothLevel}: ${clothText}`;
+        const sLevel = `✈️ ${suiLevel}: ${suiText}`;
 
-    const birthday1 = utils.calcBirthDay(config.birthday1);
-    const birthday2 = utils.calcBirthDay(config.birthday2);
-    const jojo = utils.calcFromNowDay(config.jojo);
-    const jojo_birthday = `${utils.calcFromNowDay(config.jojo_birthday)}天`;
-    const love_day = utils.calcFromNowDay(config.love_day);
-    const weather = textDay || "";
-    const min_temperature = tempMin || 0;
-    const max_temperature = tempMax || 0;
-    const date = moment().format("YYYY-MM-DD") + utils.getWeek(moment());
-    const city = config.city;
+        const birthday1 = utils.calcBirthDay(config.birthday1);
+        const birthday2 = utils.calcBirthDay(config.birthday2);
+        const jojo = utils.calcFromNowDay(config.jojo);
+        const jojo_birthday = `${utils.calcFromNowDay(config.jojo_birthday)}天`;
+        const love_day = utils.calcFromNowDay(config.love_day);
+        const weather = textDay || "";
+        const min_temperature = tempMin || 0;
+        const max_temperature = tempMax || 0;
+        const date = moment().format("YYYY-MM-DD") + utils.getWeek(moment());
+        const city = config.city;
 
-    const dataObj = {
-        date,
-        city,
-        weather,
-        min_temperature,
-        max_temperature,
-        cLevel,
-        sLevel,
-        suiLevel,
-        love_day,
-        birthday1,
-        birthday2,
-        jojo,
-        jojo_birthday,
-    }
-
-    if(tip) {
-      dataObj[tip] = `⚡⚡ ${tip}`;
-    }
-
-    const data = Object.keys(dataObj).reduce((ret, k) => {
-        const v = dataObj[k];
-        ret[k] = {
-            value: v,
-            color: utils.randomColor()
+        const dataObj = {
+            date,
+            city,
+            weather,
+            min_temperature,
+            max_temperature,
+            cLevel,
+            sLevel,
+            suiLevel,
+            love_day,
+            birthday1,
+            birthday2,
+            jojo,
+            jojo_birthday,
         }
-        return ret;
-    }, {});
 
-    return {
-        touser: config.openid,
-        template_id: config.templateId,
-        url: weatherLink,
-        topcolor: "#FF0000",
-        data,
+        if (tip) {
+            dataObj[tip] = `⚡⚡ ${tip}`;
+        }
+
+        const data = Object.keys(dataObj).reduce((ret, k, idx) => {
+            const v = dataObj[k];
+            ret[k] = {
+                value: v,
+                color: utils.randomColor(idx)()
+            }
+            return ret;
+        }, {});
+
+        return {
+            touser: config.openid,
+            template_id: config.templateId,
+            url: weatherLink,
+            topcolor: "#FF0000",
+            data,
+        }
+    } catch(e){
+        console.log(e);
     }
 };
 
