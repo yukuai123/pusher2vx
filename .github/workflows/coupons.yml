@@ -2,7 +2,7 @@ name: coupons # yml文件名
 
 on:
   schedule:
-    - cron: '0 23 * * *'   # 定时运行的时间，国际标准时间，北京时间要+8
+    - cron: '30 14 * * *'   # 定时运行的时间，国际标准时间，北京时间要+8
 
 jobs:
   run-coupons: # 任务名

@@ -1,13 +1,41 @@
-{
-    "url": "https://api.weixin.qq.com",
-    "appid":"wx6b8efc358deb0cfa",
-    "secret": "756a243f85494bc931f663ea3be25900",
-    "templateId": "CKVFOVzT_OPsEzP1jTKhnaik0-1IYPCDQaWlykku5hY",
-    "love_day": "2016-12-11",
-    "birthday1": "04-04",
-    "birthday2": "08-29",
-    "jojo": "2022-07-31",
-    "jojo_birthday": "2022-05-18",
-    "city": "宁德",
-    "openid": "oGBbq5--kCZhWBP61o4SD5QLLKLk"
-}
+[
+    {
+        "url": "https://api.weixin.qq.com",
+        "appid":"wx6b8efc358deb0cfa",
+        "secret": "756a243f85494bc931f663ea3be25900",
+        "templateId": "CcUz3UU-gjGuoPTApuPsucXdHnkGpr6r4xz19torQxo",
+        "love_day": "2016-12-11",
+        "birthday1": "04-04",
+        "birthday2": "08-29",
+        "jojo": "2022-07-31",
+        "jojo_birthday": "2022-05-18",
+        "city": "宁德",
+        "openid": "oGBbq52z9y6plsDdlmrrHRNWIiwQ"
+    },
+    {
+        "url": "https://api.weixin.qq.com",
+        "appid":"wx6b8efc358deb0cfa",
+        "secret": "756a243f85494bc931f663ea3be25900",
+        "templateId": "CcUz3UU-gjGuoPTApuPsucXdHnkGpr6r4xz19torQxo",
+        "love_day": "2016-12-11",
+        "birthday1": "04-04",
+        "birthday2": "08-29",
+        "jojo": "2022-07-31",
+        "jojo_birthday": "2022-05-18",
+        "city": "宁德",
+        "openid": "oGBbq5--kCZhWBP61o4SD5QLLKLk"
+    },
+    {
+        "url": "https://api.weixin.qq.com",
+        "appid":"wx6b8efc358deb0cfa",
+        "secret": "756a243f85494bc931f663ea3be25900",
+        "templateId": "CcUz3UU-gjGuoPTApuPsucXdHnkGpr6r4xz19torQxo",
+        "love_day": "2016-12-11",
+        "birthday1": "04-04",
+        "birthday2": "08-29",
+        "jojo": "2022-07-31",
+        "jojo_birthday": "2022-05-18",
+        "city": "福州",
+        "openid": "oGBbq5zax0b4jd652Yh2Mj2LGisA"
+    }
+]

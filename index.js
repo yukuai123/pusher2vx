@@ -1,12 +1,12 @@
 const weatherApi = require('./weather.js');
-const config = require("./config.json");
+const configs = require("./config.json");
 const utils = require("./util.js");
 const request = require('./request');
 const moment = require('moment');
 
-const queryAccessToken = async () => {
+const queryAccessToken = async (c) => {
     try {
-        const res = await request.get(`${config.url}/cgi-bin/token?grant_type=client_credential&appid=${config.appid}&secret=${config.secret}`)
+        const res = await request.get(`${c.url}/cgi-bin/token?grant_type=client_credential&appid=${c.appid}&secret=${c.secret}`)
         if(res?.data?.access_token) {
             return res?.data?.access_token;
         } else {
@@ -17,36 +17,36 @@ const queryAccessToken = async () => {
     }
 }
 
-const dispatchMessage = async (payload) => {
+const dispatchMessage = async (payload, c) => {
    try{
-    const access_token = await queryAccessToken();
-    const res = await request.post(`${config.url}/cgi-bin/message/template/send?access_token=${access_token}`, payload);
+    const access_token = await queryAccessToken(c);
+    const res = await request.post(`${c.url}/cgi-bin/message/template/send?access_token=${access_token}`, payload);
     console.log(res?.data)
    } catch(e){
     console.log(e);
    }
 };
 
-const genPayload = async () => {
+const genPayload = async (c) => {
 
     try {
-        const weatherInfo = await weatherApi.queryWeather();
+        const weatherInfo = await weatherApi.queryWeather(c);
         const { tempMax , tempMin, textDay, tipText, clothLevel, clothText, suiLevel, suiText, weatherLink } = weatherInfo || {};
         const tip = tipText;
 
         const cLevel = `🕊️ ${clothLevel}: ${clothText}`;
         const sLevel = `✈️ ${suiLevel}: ${suiText}`;
 
-        const birthday1 = utils.calcBirthDay(config.birthday1);
-        const birthday2 = utils.calcBirthDay(config.birthday2);
-        const jojo = utils.calcFromNowDay(config.jojo);
-        const jojo_birthday = `${utils.calcFromNowDay(config.jojo_birthday)}天`;
-        const love_day = utils.calcFromNowDay(config.love_day);
+        const birthday1 = utils.calcBirthDay(c.birthday1);
+        const birthday2 = utils.calcBirthDay(c.birthday2);
+        const jojo = utils.calcFromNowDay(c.jojo);
+        const jojo_birthday = `${utils.calcFromNowDay(c.jojo_birthday)}天`;
+        const love_day = utils.calcFromNowDay(c.love_day);
         const weather = textDay || "";
         const min_temperature = tempMin || 0;
         const max_temperature = tempMax || 0;
         const date = moment().format("YYYY-MM-DD") + utils.getWeek(moment());
-        const city = config.city;
+        const city = c.city;
 
         const dataObj = {
             date,
@@ -78,8 +78,8 @@ const genPayload = async () => {
         }, {});
 
         return {
-            touser: config.openid,
-            template_id: config.templateId,
+            touser: c.openid,
+            template_id: c.templateId,
             url: weatherLink,
             topcolor: "#FF0000",
             data,
@@ -90,6 +90,9 @@ const genPayload = async () => {
 };
 
 module.exports = async () => {
-    const result = await genPayload();
-    dispatchMessage(JSON.stringify(result));
+    configs.forEach((config) => {
+        genPayload(config).then(result => {
+            dispatchMessage(JSON.stringify(result), config);
+        });
+    })
 }

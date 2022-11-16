@@ -18,22 +18,22 @@ const queryLocation = async (cityName = "宁德") => {
     };
 };
 
-const queryWeather = async () => {
+const queryWeather = async (c) => {
     try {
-       const locationId = await queryLocation();
+       const locationId = await queryLocation(c.city);
 
        const warningTip = await request.get(`https://devapi.qweather.com/v7/warning/now?location=${locationId}&lang=en&key=${config.key}`);
        const { text: tipText } = warningTip.data?.warning?.[0] || { text: "" };
 
-       const levelInfo = await request.get(`https://devapi.qweather.com/v7/indices/1d?type=3,8&location=${locationId}&key=${config.key}`);
-       const [{ name: clothLevel, text: clothText }, { name: suiLevel, text: suiText }] = levelInfo.data?.daily || [{}, {}]
+       const levelInfo = await request.get(`https://devapi.qweather.com/v7/indices/3d?type=3,8&location=${locationId}&key=${config.key}`);
+       const [{ name: clothLevel, text: clothText }, { name: suiLevel, text: suiText }] = levelInfo.data?.daily?.slice(2) || [{}, {}]
        let weatherLink = levelInfo.data?.fxLink || "";
 
        let res = await request.get(`https://devapi.qweather.com/v7/weather/3d?location=${locationId}&key=${config.key}`);
 
        res = res.data;
        if (res.code === "200") {
-            return { ...res.daily?.[0], tipText, clothLevel, clothText, suiLevel, suiText, weatherLink } || {};
+            return { ...res.daily?.[1], tipText, clothLevel, clothText, suiLevel, suiText, weatherLink } || {};
        } else {
             return {};
        }
